@@ -1,0 +1,71 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left  "{tabs}"
+                format_right "{datetime}"
+                format_space "#[bg=#000000]"
+
+                mode_normal  "#[bg=blue] "
+
+                tab_normal               "#[fg=#ffffff,bg=#000000] {name}"
+                tab_active               "#[fg=#50fa7b,bg=#000000,bold,italic] {name}"
+
+                datetime          "#[fg=#50fa7b,bg=#000000,bold] {format}"
+                datetime_format   "%A, %d %b %Y %H:%M"
+                datetime_timezone "America/Argentina/Buenos_Aires"
+            }
+        }
+        children
+    }
+    tab name="Canid" {
+        pane split_direction="vertical" {
+            pane {
+                pane cwd="~/canid/bluefox" name="Internal Tools" {
+                    command "yarn"
+                    args "start:it"
+                }
+                pane cwd="~/canid/bluefox" name="Practice Portal" {
+                    command "yarn"
+                    args "start:pp"
+                }
+            }
+            pane {
+                pane cwd="~/canid/satellites" name="Satellites" {
+                    command "yarn"
+                    args "dev"
+                }
+                pane split_direction="vertical" {
+                    pane cwd="~/canid/backend-api" name="Hasura Console" {
+                        command "hasura"
+                        args "console"
+                    }
+                    pane cwd="~/canid/bluefox" name="Services" {
+                        command "yarn"
+                        args "dev:s"
+                    }
+                }
+            }
+        }
+    }
+    tab name="Git" {
+        pane split_direction="vertical" {
+            pane cwd="~/canid/bluefox" name="Bluefox LazyGit" {
+                command "lazygit"
+            }
+            pane cwd="~/canid/backend-api" name="Backend-Api LazyGit" {
+                command "lazygit"
+            }
+        }
+    }
+    tab name="Docker" {
+        pane name="LazyDocker" {
+            command "lazydocker"
+        }
+    }
+    tab name="Activity" {
+        pane name="BTop" {
+            command "btop"
+        }
+    }
+}
