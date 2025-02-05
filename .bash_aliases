@@ -19,7 +19,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias ff="fzf --preview 'batcat --style=numbers --color=always {}'"
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 alias fd='fdfind'
 
 # Directories
@@ -43,7 +43,7 @@ alias n='nvim'
 alias g='git'
 alias d='docker'
 alias r='rails'
-alias bat='batcat'
+alias bat='bat'
 alias lzg='lazygit'
 alias lzd='lazydocker'
 
@@ -53,8 +53,8 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gcad='git commit -a --amend'
 
-# alias for batcat
-alias cat="batcat"
+# alias for bat
+alias cat="bat"
 
 # Alias's for archives
 alias mktar='tar -cvf'

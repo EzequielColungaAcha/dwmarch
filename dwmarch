@@ -3,8 +3,12 @@
 thisFolder=$(dirname "$(realpath "$0")")
 
 # Update the system and install base dependencies
+sudo pacman -S --noconfirm reflector
+sudo reflector --verbose --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 sudo pacman -Syu --noconfirm
-sudo pacman -S --noconfirm base-devel xorg git wget curl libx11 libxft libxinerama zip xorg-server xorg-xinit xorg-xprop libxcb make gcc pkg-config
+sudo pacman -S --noconfirm nano xorg-server xorg-xinit xorg-xrandr xorg-xsetroot picom eza trash-cli bat tree bash-completion fzf ripgrep bat eza zoxide plocate btop fd tldr arandr pulseaudio pavucontrol ntfs-3g libnotify dunst feh networkmanager pasystray xdotool xss-lock base-devel xorg git wget curl libx11 libxft libxinerama zip xorg-xprop libxcb make gcc pkg-config glow libglib2.0 pulsemixer alacritty flameshot vlc pcmanfm code rofi
+head -n -5 ~/.xinitrc > ~/.xinitrc
+echo "dwm_init" >> ~/.xinitrc
 
 echo "Base X installed"
 
@@ -12,14 +16,10 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
-# Installing the necessary tools
-sudo pacman -S --noconfirm gpg
+yay -S --noconfirm pywal #pywal16 / python-pywal16 / pywal16-colors
 
 # Install chrome (using AUR via yay)
-yay -S --noconfirm google-chrome
-
-# Install VSCode (using AUR via yay)
-yay -S --noconfirm visual-studio-code-bin
+# yay -S --noconfirm google-chrome
 
 # Install Docker (official Arch package)
 sudo pacman -S --noconfirm docker
@@ -31,9 +31,6 @@ sudo chmod 666 /var/run/docker.sock
 echo "Docker setup completed"
 
 ln -sf $thisFolder/.config/* ~/.config/
-
-# Install other packages
-sudo pacman -S --noconfirm python python-pip imagemagick procps psmisc xdotool xsel feh picom networkmanager tree trash-cli bash-completion fzf ripgrep bat eza zoxide plocate btop fd tldr arandr pulseaudio pavucontrol ntfs-3g libnotify dunst pasystray glow libglib2.0 pulsemixer alacritty flameshot vlc pcmanfm
 
 # Create symbolic links
 ln -s $(which fdfind) ~/.local/bin/fd
@@ -50,6 +47,7 @@ ln -sf $thisFolder/fonts/* ~/.local/share/fonts/
 # Set up bashrc
 rm ~/.bashrc
 ln -sf $thisFolder/.bashrc ~/
+ln -sf $thisFolder/.bash_aliases ~/
 
 # Install DWM and other programs from source
 cd $thisFolder/src/dwm
@@ -71,15 +69,15 @@ cd $thisFolder/src/dmenu
 sudo make clean install
 echo "dmenu ready"
 
+cd $thisFolder/src/slock
+sudo make install
+echo "slock ready"
+
 cd $thisFolder/src/clipmenu
 sudo make clean install
 
 cd $thisFolder/src/clipnotify
 sudo make clean install
-
-# Set up X session and interfaces
-rm ~/.xinitrc
-ln -sf $thisFolder/.xinitrc ~/.xinitrc
 
 # Install LazyGit
 sudo pacman -S lazygit
@@ -93,5 +91,5 @@ curl https://get.volta.sh | bash
 echo "Don't forget to install node and yarn with 'volta install node yarn'"
 
 # Network interface setup
-sudo mv /etc/netctl/interfaces /etc/netctl/interfaces.bak
-sudo ln -sf $thisFolder/interfaces /etc/netctl/
+# sudo mv /etc/netctl/interfaces /etc/netctl/interfaces.bak
+# sudo ln -sf $thisFolder/interfaces /etc/netctl/

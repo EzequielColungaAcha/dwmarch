@@ -1,0 +1,13 @@
+/src/dmenu/*.o
+/src/dmenu/config.h
+/src/dmenu/dmenu
+/src/dwm/*.o
+/src/dwm/config.h
+/src/dwm/dwm
+/src/slock/*.o
+/src/slock/config.h
+/src/slock/slock
+/src/slstatus/components/*.o
+/src/slstatus/*.o
+/src/slstatus/config.h
+/src/slstatus/slstatus
